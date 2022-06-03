@@ -1,0 +1,73 @@
+---
+#SVC
+apiVersion: v1
+kind: Service
+metadata:
+  name: openstack-swift-keystone-docker
+  namespace: paasta
+spec:
+  ports:
+  - port: 35357
+    targetPort: 35357
+    name: keystone1
+  - port: 5000
+    targetPort: 5000
+    name: keystone2
+  - port: 10008
+    targetPort: 10008
+    name: proxy1
+  - port: 10009
+    targetPort: 10009
+    name: proxy2
+  selector:
+    app: openstack-swift-keystone-docker
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: openstack-swift-keystone-docker
+  namespace: paasta
+spec:
+  serviceName: openstack-swift-keystone-docker
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openstack-swift-keystone-docker
+  template:
+    metadata:
+      labels:
+        app: openstack-swift-keystone-docker
+    spec:
+      containers:
+      - image: 3.36.165.47.nip.io/sidecar/saio@sha256:55072b2f032b8bb25aa9dda0c501067db9ba119f09621f66b631f785b2f65bf7
+        name: openstack-swift-keystone-docker
+        env:
+        - name: IF_USE_SWIFT_EXTERNAL_MARIADB
+          value: "true"
+        - name: MARIADB_PORT
+          value: "3306"
+        - name: MARIADB_ADMIN_PASSWORD
+          value: "Paasta@2019"
+        - name: SWIFT_ADDRESS
+          value: "openstack-swift-keystone-docker.paasta.svc.cluster.local"
+        - name: KEYSTONE_PORT
+          value: "5000"
+        - name: PROXY_PORT
+          value: "10009"
+        - name: PORTAL_OPENSTACK_REGION
+          value: "paasta"
+        ports:
+        - containerPort: 15001 # Container 포트
+          name: openstack-swift
+        volumeMounts:
+        - name: openstack-swift-keystone-docker-persistent-storage
+          mountPath: /mnt
+  volumeClaimTemplates:
+  - metadata:
+      name: openstack-swift-keystone-docker-persistent-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10G
+---
