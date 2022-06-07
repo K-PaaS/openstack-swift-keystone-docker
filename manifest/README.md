@@ -2,7 +2,7 @@
 ### paasta-portal info
 | Name | Default Value |
 |--|--|
-| IF_USE_SWIFT_EXTERNAL_MARIADB | false |
+| IF_USE_SWIFT_EXTERNAL_MARIADB | false(현재 true만 정상 동작) |
 | MARIADB_ADDRESS | "mariadb.paasta.svc.cluster.local" |
 | MARIADB_PORT | 13306 |
 | MARIADB_ADMIN_PASSWORD | admin |
