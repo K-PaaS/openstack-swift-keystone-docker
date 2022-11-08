@@ -1,3 +1,4 @@
+#!/bin/bash
 # Setup Swift storage
 
 mkdir -p /mnt/sdb1/1 ; \
