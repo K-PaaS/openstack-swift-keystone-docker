@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.PAT }}
       
       - name: Build image and push to GitHub Container Registry
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           tags: |
