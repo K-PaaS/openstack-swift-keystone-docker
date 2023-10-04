@@ -34,17 +34,17 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
         jq \
         vim-tiny
 
-# paasta-portal info
+# kpaas-portal info
 ENV IF_USE_SWIFT_EXTERNAL_MARIADB       false
-ENV MARIADB_ADDRESS                     "mariadb.paasta.svc.cluster.local"
+ENV MARIADB_ADDRESS                     "mariadb.kpaas.svc.cluster.local"
 ENV MARIADB_PORT                        13306
 ENV MARIADB_ADMIN_PASSWORD              admin
-ENV PORTAL_OPENSTACK_PROJECT_NAME       paasta-portal
+ENV PORTAL_OPENSTACK_PROJECT_NAME       kpaas-portal
 ENV PORTAL_OPENSTACK_PROJECT_DESC       "portal binary_storage"
-ENV PORTAL_OPENSTACK_USER_NAME          paasta-portal
-ENV PORTAL_OPENSTACK_USER_PASSWORD      paasta
-ENV PORTAL_OPENSTACK_REGION             paasta
-ENV PORTAL_OPENSTACK_USER_EMAIL         paasta@paasta.com
+ENV PORTAL_OPENSTACK_USER_NAME          kpaas-portal
+ENV PORTAL_OPENSTACK_USER_PASSWORD      kpaas
+ENV PORTAL_OPENSTACK_REGION             kpaas
+ENV PORTAL_OPENSTACK_USER_EMAIL         kpaas@kpaas.com
 ENV SWIFT_ADDRESS                       localhost
 ENV KEYSTONE_PORT                       5000
 ENV PROXY_PORT                          10008
