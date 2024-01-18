@@ -44,7 +44,7 @@ if [ "$IF_USE_SWIFT_EXTERNAL_MARIADB" == "true" ]; then echo mysql-server mysql-
     keystone-manage bootstrap --bootstrap-password ${OS_PASSWORD} \
         --bootstrap-admin-url ${OS_AUTH_URL} \
         --bootstrap-internal-url ${OS_AUTH_URL} \
-        --bootstrap-public-url ${OS_AUTH_URL} \
+        --bootstrap-public-url http://$SWIFT_ADDRESS:$KEYSTONE_PORT/v3 \
         --bootstrap-region-id RegionOne && \
     apachectl start && \
     # Creating project and user
